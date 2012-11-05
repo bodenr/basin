@@ -1,0 +1,12 @@
+{
+	"appenders": [
+		{
+			"type": "console"
+		}
+	],
+		
+	"levels": {
+		"middleware": "ALL",
+		"[default]": "ALL"
+	}
+}

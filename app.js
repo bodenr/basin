@@ -25,12 +25,12 @@ var app = exports.app = express();
  */
 
 http.IncomingMessage.prototype.__defineGetter__('baseUrl', function() {
-	if (this.hostUrl) {
-		return this.hostUrl;
-	}
-	// cache it so its only built once per request
-	this.hostUrl = util.format("%s://%s:%s", this.protocol, this.host, app.get('port'));
-	return this.hostUrl;
+    if (this.hostUrl) {
+        return this.hostUrl;
+    }
+    // cache it so its only built once per request
+    this.hostUrl = util.format("%s://%s:%s", this.protocol, this.host, app.get('port'));
+    return this.hostUrl;
 });
 
 /**
@@ -38,7 +38,7 @@ http.IncomingMessage.prototype.__defineGetter__('baseUrl', function() {
  */
 
 http.IncomingMessage.prototype.getAdminUrl = function(path) {
-	return this.baseUrl + (("/admin/" + path).replace(/\/\//g,'/'));
+    return this.baseUrl + (("/admin/" + path).replace(/\/\//g,'/'));
 };
 
 /**
@@ -46,12 +46,12 @@ http.IncomingMessage.prototype.getAdminUrl = function(path) {
  */
 
 http.IncomingMessage.prototype.__defineGetter__('fullUrl', function() {
-	if (this.qualifiedUrl) {
-		return this.qualifiedUrl;
-	}
-	// cache so we only build once per request
-	this.qualifiedUrl = util.format("%s%s", this.baseUrl, this.url);
-	return this.qualifiedUrl;
+    if (this.qualifiedUrl) {
+        return this.qualifiedUrl;
+    }
+    // cache so we only build once per request
+    this.qualifiedUrl = util.format("%s%s", this.baseUrl, this.url);
+    return this.qualifiedUrl;
 });
 
 /**
@@ -76,21 +76,21 @@ app.buildAdminUri = function(path) {
  */
 
 app.decorateRoutes = function(mappings, name) {
-	verbs.forEach(function(verb) {
-		var routes = app.routes[verb.toLowerCase()] || [];
-		routes.forEach(function(route) {
-			if (mappings[route.path]) {
-				route[name] = mappings[route.path];
-			}
-		});
-	});
+    verbs.forEach(function(verb) {
+        var routes = app.routes[verb.toLowerCase()] || [];
+        routes.forEach(function(route) {
+            if (mappings[route.path]) {
+                route[name] = mappings[route.path];
+            }
+        });
+    });
 };
 
 var compile = function(str, path) {
-	return stylus(str)
-			.set('filename', path)
-			.set('compress', false)
-			.use(nib()).import('nib');
+    return stylus(str)
+            .set('filename', path)
+            .set('compress', false)
+            .use(nib()).import('nib');
 };
 
 /**
@@ -112,8 +112,8 @@ app.configure(function() {
     var publicDir = path.join(__dirname, 'public');
     
     app.use(stylus.middleware({
-    	src: publicDir,
-    	compile: compile
+        src: publicDir,
+        compile: compile
     }));
     app.use(express.static(publicDir));
 });
@@ -124,11 +124,11 @@ app.configure('development', function() {
 
 
 app.get('/index', function(req, res) {
-	res.render('index', {title: 'Sample Title'}, function(err, html) {
-		res.send(html);
-	});
+    res.render('index', {title: 'Sample Title'}, function(err, html) {
+        res.send(html);
+    });
 });
-	
+    
 /**
  * Initialize top level resources.
  */
